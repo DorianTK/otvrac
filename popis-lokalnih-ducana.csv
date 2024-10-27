@@ -1,0 +1,19 @@
+1,Konzum,"Ilica 117A, Zagreb",45.81275015,15.96082939,08:00-22:00,Market,f,Konzum Group,Bakery
+2,Lidl,"Ulica Ive Robića 4, Zagreb",45.77116298,15.94585347,07:00-23:00,Supermarket,t,Lidl Group,Bakery
+3,Spar,"Savska 58, Zagreb",45.79965430,15.96152517,07:30-21:30,Supermarket,t,Spar Group,Bakery
+3,Spar,"Savska 58, Zagreb",45.79965430,15.96152517,07:30-21:30,Supermarket,t,Spar Group,Deli
+4,Plodine,"Ul. Vice Vukova 2, Zagreb",45.77921195,15.94120502,08:00-21:00,Hypermarket,t,Plodine Group,Bakery
+4,Plodine,"Ul. Vice Vukova 2, Zagreb",45.77921195,15.94120502,08:00-21:00,Hypermarket,t,Plodine Group,Deli
+5,Kaufland,"Vukovarska ulica 10, Šibenik",43.81484417,15.90367710,07:00-22:00,Supermarket,t,Kaufland Group,Bakery
+5,Kaufland,"Vukovarska ulica 10, Šibenik",43.81484417,15.90367710,07:00-22:00,Supermarket,t,Kaufland Group,Deli
+6,Tommy,"Dubrovačka ul. 1, Split",43.50617421,16.45608125,08:00-21:00,Supermarket,t,Tommy Group,Bakery
+6,Tommy,"Dubrovačka ul. 1, Split",43.50617421,16.45608125,08:00-21:00,Supermarket,t,Tommy Group,Deli
+7,Metro,"Jankomir 31, Zagreb",45.80891788,15.87843251,06:00-21:00,Hypermarket,t,Metro Group,Bakery
+8,Eurospin,"Ul. Ante Starčevića 20, Zaprešić",45.86122865,15.79910695,07:00-21:00,Supermarket,t,Eurospin Group,Bakery
+8,Eurospin,"Ul. Ante Starčevića 20, Zaprešić",45.86122865,15.79910695,07:00-21:00,Supermarket,t,Eurospin Group,Deli
+9,DM Drogerie Markt,"Ul. Zvonimira Rihtmana 4, Zagreb",45.80194567,15.95391060,08:00-21:00,Drugstore,t,DM Group,Cosmetics
+9,DM Drogerie Markt,"Ul. Zvonimira Rihtmana 4, Zagreb",45.80194567,15.95391060,08:00-21:00,Drugstore,t,DM Group,Health and beauty products
+9,DM Drogerie Markt,"Ul. Zvonimira Rihtmana 4, Zagreb",45.80194567,15.95391060,08:00-21:00,Drugstore,t,DM Group,Toiletries
+10,Müller,"Ul. Ante Starčevića 22, Zaprešić",45.85943780,15.79788328,08:00-21:00,Drugstore,t,Müller Holding Ltd. & Co. KG,Cosmetics
+10,Müller,"Ul. Ante Starčevića 22, Zaprešić",45.85943780,15.79788328,08:00-21:00,Drugstore,t,Müller Holding Ltd. & Co. KG,Health and beauty products
+10,Müller,"Ul. Ante Starčevića 22, Zaprešić",45.85943780,15.79788328,08:00-21:00,Drugstore,t,Müller Holding Ltd. & Co. KG,Toiletries
