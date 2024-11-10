@@ -1,0 +1,91 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "title": "OR Popis lokalnih dućana",
+    "description": "The root schema is the schema that comprises the entire JSON document.",
+    "type": "array",
+    "items": {
+        "title": "Dućan",
+        "description": "An explanation about the purpose of this instance.",
+        "type": "object",
+        "required": [
+            "store_id",
+            "store_name",
+            "address",
+            "latitude",
+            "longitude",
+            "opening_hours",
+            "store_type",
+            "parking_availability",
+            "chain_name",
+            "departments"
+        ],
+        "properties": {
+            "store_id": {
+                "title": "The store_id Schema",
+                "description": "jedinstvena šifra za dućan",
+                "type": "integer"
+            },
+            "store_name": {
+                "title": "The store_name Schema",
+                "description": " naziv dućana",
+                "type": "string"
+            },
+            "address": {
+                "title": "The address Schema",
+                "description": "adresa dućana",
+                "type": "string"
+            },
+            "latitude": {
+                "title": "The latitude Schema",
+                "description": "x koordinata lokacije",
+                "type": "number"
+            },
+            "longitude": {
+                "title": "The longitude Schema",
+                "description": " y koordinata lokacije",
+                "type": "number"
+            },
+            "opening_hours": {
+                "title": "The opening_hours Schema",
+                "description": "radno vrijeme",
+                "type": "string"
+            },
+            "store_type": {
+                "title": "The store_type Schema",
+                "description": " vrsta dućana po veličini i namjeni",
+                "type": "string"
+            },
+            "parking_availability": {
+                "title": "The parking_availability Schema",
+                "description": "dosutpnost parkinga",
+                "type": "boolean"
+            },
+            "chain_name": {
+                "title": "The chain_name Schema",
+                "description": "ime grupacije kojoj pripada dućan",
+                "type": "string"
+            },
+            "departments": {
+                "title": "The departments Schema",
+                "description": " odjeli u dućanu",
+                "type": "array",
+                "items": {
+                    "title": "Odjel",
+                    "description": "odjel u dućanu",
+                    "type": "object",
+                    "required": [
+                        "department_name"
+                    ],
+                    "properties": {
+                        "department_name": {
+                            "title": "The department_name Schema",
+                            "description": "Naziv odjela",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
