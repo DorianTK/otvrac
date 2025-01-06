@@ -1,4 +1,6 @@
 import {
+    Box,
+    Button,
     buttonClasses,
     Container,
     ThemeProvider,
@@ -13,6 +15,8 @@ import {
     GridColDef,
 } from "@mui/x-data-grid";
 import CustomToolbar from "../CustomToolbar/CustomToolbar";
+import StoreForm from "../Forms/StoreForm";
+import axios from "axios";
 
 const columns: GridColDef[] = [
     {
@@ -73,7 +77,7 @@ const columns: GridColDef[] = [
     },
 ];
 
-interface StoreData {
+export interface StoreData {
     store_id: number;
     store_name: string;
     address: string;
@@ -86,19 +90,73 @@ interface StoreData {
     departments: { department_name: string }[];
 }
 
+const initialStore = {
+    store_id: 0,
+    store_name: "",
+    address: "",
+    latitude: 0,
+    longitude: 0,
+    opening_hours: "",
+    store_type: "",
+    parking_availability: false,
+    chain_name: "",
+    departments: [{ department_name: "" }],
+};
+
 const Table = () => {
     const [rows, setRows] = useState<StoreData[]>([]);
     const autosizeOptions: GridAutosizeOptions = {
         includeOutliers: true,
     };
+    const [formState, setFormState] = useState<"add" | "update" | null>(null);
+    const [selectedStore, setSelectedStore] = useState<StoreData | null>(null);
+
+    const submitForm = async (
+        currentFormState: "add" | "update" | null,
+        store: StoreData
+    ) => {
+        try {
+            if (currentFormState === "add") {
+                console.log("add");
+                const response = await axios.post(
+                    "http://localhost:4000/api/stores",
+                    store
+                );
+                setRows((prevRows) => [...prevRows, response.data]);
+            } else if (currentFormState === "update") {
+                console.log("update");
+                const response = await axios.put(
+                    `http://localhost:4000/api/stores/${store.store_id}`,
+                    store
+                );
+                setRows((prevRows) =>
+                    prevRows.map((row) =>
+                        row.store_id === store.store_id ? store : row
+                    )
+                );
+            } else {
+                console.log("Error: cannot submit.");
+            }
+        } catch (error) {
+            console.error("Error submiting form:", error);
+        }
+    };
+
+    const handleUpdateClick = (id: number) => {
+        const storeToUpdate = rows.find((row) => row.store_id === id);
+        if (storeToUpdate) {
+            setFormState("update");
+            setSelectedStore(storeToUpdate);
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(
-                    "http://localhost:4000/api/stores"
-                );
-                const data = await response.json();
+                const response = await axios.get("http://localhost:4000/api/stores");
+        
+                // Assuming the response structure is { status, message, response }
+                const data = response.data.response;  // The stores are inside the "response" field
                 const rowsWithId = data.map((row) => ({
                     ...row,
                 }));
@@ -107,9 +165,12 @@ const Table = () => {
                 console.error("Error:", error);
             }
         };
+        
 
         fetchData();
     }, []);
+
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -121,7 +182,7 @@ const Table = () => {
                     display: "flex",
                     flexDirection: "column",
                     width: "100%",
-                    height: "100vh",
+                    height: "100dvh",
                     alignItems: "center",
                     justifyContent: "center",
                 }}
@@ -133,37 +194,61 @@ const Table = () => {
                     Ovo je web stranica koja prikazuje popis lokalnih dućana
                     koristeći otvorene podatke
                 </Typography>
-                <DataGrid
-                    getRowId={(row) => row.store_id}
-                    getRowHeight={() => "auto"}
-                    autosizeOptions={autosizeOptions}
-                    columns={columns}
-                    rows={rows}
-                    checkboxSelection
-                    slots={{
-                        toolbar: CustomToolbar,
-                    }}
-                    slotProps={{
-                        toolbar: {
-                            showQuickFilter: true,
-                        },
-                    }}
+                <Box
                     sx={{
-                        backgroundColor: "white",
-                        [`& .${gridClasses.cell}`]: {
-                            mt: 1,
-                            mb: 1,
-                            display: "flex",
-                            alignItems: "center",
-                        },
-                        [`& .${gridClasses.toolbarContainer}`]: {
-                            p: 2
-                        },
-                        [`& .${buttonClasses.root}`]: {
-                            color: "black",
-                        },
+                        width: "100%",
+                        height: "500px",
+                        display: "flex",
+                        flexDirection: "column",
+
                     }}
-                ></DataGrid>
+                >
+                    <DataGrid
+                        getRowId={(row) => row.store_id}
+                        getRowHeight={() => "auto"}
+                        autosizeOptions={autosizeOptions}
+                        columns={columns}
+                        rows={rows}
+                        checkboxSelection
+                        onRowClick={(params) => handleUpdateClick(params.id as number)}
+                        slots={{
+                            toolbar: CustomToolbar,
+                        }}
+                        slotProps={{
+                            toolbar: {
+                                showQuickFilter: true,
+                            },
+                        }}
+                        sx={{
+                            width: "100%",
+                            backgroundColor: "white",
+                            [`& .${gridClasses.cell}`]: {
+                                mt: 1,
+                                mb: 1,
+                                display: "flex",
+                                alignItems: "center",
+                            },
+                            [`& .${gridClasses.toolbarContainer}`]: {
+                                p: 2,
+                            },
+                            [`& .${buttonClasses.root}`]: {
+                                color: "black",
+                            },
+                        }}
+                    ></DataGrid>
+
+                </Box>
+                <Button onClick={() => setFormState("add")}>Add store</Button>
+                <Button onClick={() => setFormState("update")}>
+                    Update store
+                </Button>
+                {formState && (
+                    <StoreForm
+                        mode={formState}
+                        initialValues={formState === "add" ? initialStore : selectedStore || initialStore}
+                        onSubmit={submitForm}
+                    ></StoreForm>
+                )}
             </Container>
         </ThemeProvider>
     );

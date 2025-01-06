@@ -1,0 +1,827 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Open data - local stores",
+        "description": "Collection of open data about local stores in Croatia",
+        "contact": {
+            "email": "dorian.tkalcevic@fer.hr"
+        },
+        "license": {
+            "name": "Creative Commons Attribution 4.0 International",
+            "url": "https://creativecommons.org/licenses/by/4.0/deed.en"
+        },
+        "version": "1.0"
+    },
+
+    "paths": {
+        "/api/stores": {
+            "get": {
+                "summary": "Gets a collection of stores",
+                "description": "Returns a collection of stores",
+                "responses": {
+                    "200": {
+                        "description": "Fetch successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fetched stores successfully"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/Store"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new store",
+                "description": "Adds a new store to the database",
+                "requestBody": {
+                    "description": "Details of the store to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Store"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Store created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Created"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store created successfully"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/Store"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid input data"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/stores/{id}": {
+            "get": {
+                "summary": "Get a single store with set ID",
+                "description": "Returns a single store with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fetched store"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/Store"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid ID was given"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store with given ID doesn't exist"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a single store with set ID",
+                "description": "Updates a single store with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Store details to be updated",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Store"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store updated successfully"
+                                        },
+                                        "response": {
+                                            "type": "object",
+                                            "properties": {
+                                                "deleted_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid input data was given"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store with given ID doesn't exist"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a single store with set ID",
+                "description": "Removes a single store with given ID from the database",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store deleted"
+                                        },
+                                        "response": {
+                                            "type": "object",
+                                            "properties": {
+                                                "deleted_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid ID was given"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store with given ID doesn't exist"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/store/opening_hours/{id}": {
+            "get": {
+                "summary": "Get a single store opening hours with set ID",
+                "description": "Returns a single store opening hours with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fetched store time"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/StoreTime"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid ID was given"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store with given ID doesn't exist"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/store/location/{id}": {
+            "get": {
+                "summary": "Get a single store location with set ID",
+                "description": "Returns a single store location with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fetched store location"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/StoreLocation"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid ID was given"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store with given ID doesn't exist"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/store/name/{id}": {
+            "get": {
+                "summary": "Get a single store name with set ID",
+                "description": "Returns a single store name with given ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the store",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fetch successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fetched store name"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/StoreName"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid ID supplied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid ID was given"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Store not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "Error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Store with given ID doesn't exist"
+                                        },
+                                        "response": {
+                                            "type": "null",
+                                            "example": null
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api-docs": {
+            "get": {
+                "summary": "Get a API specifications",
+                "description": "Returns API specification",
+                "responses": {
+                    "200": {
+                        "description": "Fetch successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "OK"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Fetched docs"
+                                        },
+                                        "response": {
+                                            "$ref": "#/components/schemas/StoreName"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Store": {
+                "type": "object",
+                "properties": {
+                    "store_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "store_name": {
+                        "type": "string",
+                        "example": "Konzum"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Ilica 117A, Zagreb"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 45.81275015
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 15.96082939
+                    },
+                    "opening_hours": {
+                        "type": "string",
+                        "example": "08:00-22:00"
+                    },
+                    "store_type": {
+                        "type": "string",
+                        "example": "Market"
+                    },
+                    "parking_availability": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "chain_name": {
+                        "type": "string",
+                        "example": "Konzum Group"
+                    },
+                    "departments": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "department_name": {
+                                    "type": "string",
+                                    "example": "Bakery"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": ["store_id", "store_name", "address"]
+            },
+            "StoreTime": {
+                "type": "object",
+                "properties": {
+                    "store_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "store_name": {
+                        "type": "string",
+                        "example": "Konzum"
+                    },
+                    "opening_hours": {
+                        "type": "string",
+                        "example": "08:00-22:00"
+                    }
+                },
+                "required": ["opening_hours"]
+            },
+            "StoreLocation": {
+                "type": "object",
+                "properties": {
+                    "store_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "store_name": {
+                        "type": "string",
+                        "example": "Konzum"
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "Ilica 117A, Zagreb"
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 45.81275015
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 15.96082939
+                    }
+                }
+            },
+            "StoreName": {
+                "type": "object",
+                "properties": {
+                    "store_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "store_name": {
+                        "type": "string",
+                        "example": "Konzum"
+                    }
+                }
+            }
+        }
+    }
+}
