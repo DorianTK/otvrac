@@ -67,7 +67,9 @@ app.post("/api/stores", async (req, res) => {
         departments,
     } = req.body;
 
-    if (!store_name || !address || !latitude || !longitude || !store_type || !parking_availability || !chain_name) {
+    console.log(req.body);
+
+    if (!store_name || !address || !latitude || !longitude || !store_type || !opening_hours  || !chain_name || !departments  ) {
         return res.status(400).json({
             status: "Error",
             message: "Invalid input data",
