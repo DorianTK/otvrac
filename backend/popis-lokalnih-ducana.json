@@ -1,0 +1,307 @@
+[
+  {
+    "store_id": 1,
+    "store_name": "Konzum",
+    "address": "Ilica 117A, Zagreb",
+    "latitude": 45.81275015,
+    "longitude": 15.96082939,
+    "opening_hours": "08:00-22:00",
+    "store_type": "Market",
+    "parking_availability": false,
+    "chain_name": "Konzum Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      }
+    ]
+  },
+  {
+    "store_id": 2,
+    "store_name": "Lidl",
+    "address": "Ulica Ive Robića 4, Zagreb",
+    "latitude": 45.77116298,
+    "longitude": 15.94585347,
+    "opening_hours": "07:00-23:00",
+    "store_type": "Supermarket",
+    "parking_availability": true,
+    "chain_name": "Lidl Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      }
+    ]
+  },
+  {
+    "store_id": 3,
+    "store_name": "Spar",
+    "address": "Savska 58, Zagreb",
+    "latitude": 45.7996543,
+    "longitude": 15.96152517,
+    "opening_hours": "07:30-21:30",
+    "store_type": "Supermarket",
+    "parking_availability": true,
+    "chain_name": "Spar Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      },
+      {
+        "department_name": "Deli"
+      }
+    ]
+  },
+  {
+    "store_id": 4,
+    "store_name": "Plodine",
+    "address": "Ul. Vice Vukova 2, Zagreb",
+    "latitude": 45.77921195,
+    "longitude": 15.94120502,
+    "opening_hours": "08:00-21:00",
+    "store_type": "Hypermarket",
+    "parking_availability": true,
+    "chain_name": "Plodine Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      },
+      {
+        "department_name": "Deli"
+      }
+    ]
+  },
+  {
+    "store_id": 5,
+    "store_name": "Kaufland",
+    "address": "Vukovarska ulica 10, Šibenik",
+    "latitude": 43.81484417,
+    "longitude": 15.9036771,
+    "opening_hours": "07:00-22:00",
+    "store_type": "Supermarket",
+    "parking_availability": true,
+    "chain_name": "Kaufland Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      },
+      {
+        "department_name": "Deli"
+      }
+    ]
+  },
+  {
+    "store_id": 6,
+    "store_name": "Tommy",
+    "address": "Dubrovačka ul. 1, Split",
+    "latitude": 43.50617421,
+    "longitude": 16.45608125,
+    "opening_hours": "08:00-21:00",
+    "store_type": "Supermarket",
+    "parking_availability": true,
+    "chain_name": "Tommy Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      },
+      {
+        "department_name": "Deli"
+      }
+    ]
+  },
+  {
+    "store_id": 7,
+    "store_name": "Metro",
+    "address": "Jankomir 31, Zagreb",
+    "latitude": 45.80891788,
+    "longitude": 15.87843251,
+    "opening_hours": "06:00-21:00",
+    "store_type": "Hypermarket",
+    "parking_availability": true,
+    "chain_name": "Metro Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      }
+    ]
+  },
+  {
+    "store_id": 8,
+    "store_name": "Eurospin",
+    "address": "Ul. Ante Starčevića 20, Zaprešić",
+    "latitude": 45.86122865,
+    "longitude": 15.79910695,
+    "opening_hours": "07:00-21:00",
+    "store_type": "Supermarket",
+    "parking_availability": true,
+    "chain_name": "Eurospin Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      },
+      {
+        "department_name": "Deli"
+      }
+    ]
+  },
+  {
+    "store_id": 9,
+    "store_name": "DM Drogerie Markt",
+    "address": "Ul. Zvonimira Rihtmana 4, Zagreb",
+    "latitude": 45.80194567,
+    "longitude": 15.9539106,
+    "opening_hours": "08:00-21:00",
+    "store_type": "Drugstore",
+    "parking_availability": true,
+    "chain_name": "DM Group",
+    "departments": [
+      {
+        "department_name": "Toiletries"
+      },
+      {
+        "department_name": "Health and beauty products"
+      },
+      {
+        "department_name": "Cosmetics"
+      }
+    ]
+  },
+  {
+    "store_id": 10,
+    "store_name": "Müller",
+    "address": "Ul. Ante Starčevića 22, Zaprešić",
+    "latitude": 45.8594378,
+    "longitude": 15.79788328,
+    "opening_hours": "08:00-21:00",
+    "store_type": "Drugstore",
+    "parking_availability": true,
+    "chain_name": "Müller Holding Ltd. & Co. KG",
+    "departments": [
+      {
+        "department_name": "Toiletries"
+      },
+      {
+        "department_name": "Health and beauty products"
+      },
+      {
+        "department_name": "Cosmetics"
+      }
+    ]
+  },
+  {
+    "store_id": 14,
+    "store_name": "adad",
+    "address": "adad",
+    "latitude": 4,
+    "longitude": 1,
+    "opening_hours": "2020",
+    "store_type": "je",
+    "parking_availability": false,
+    "chain_name": "aa",
+    "departments": [
+      {
+        "department_name": "aa"
+      },
+      {
+        "department_name": "aaa"
+      },
+      {
+        "department_name": "aaa"
+      }
+    ]
+  },
+  {
+    "store_id": 18,
+    "store_name": "test",
+    "address": "testaddress",
+    "latitude": 1,
+    "longitude": 1,
+    "opening_hours": "2020",
+    "store_type": "super",
+    "parking_availability": true,
+    "chain_name": "chain",
+    "departments": [
+      {
+        "department_name": "dpeartment"
+      }
+    ]
+  },
+  {
+    "store_id": 19,
+    "store_name": "addstore",
+    "address": "storeaddress",
+    "latitude": 11,
+    "longitude": 11,
+    "opening_hours": "10-20",
+    "store_type": "market",
+    "parking_availability": true,
+    "chain_name": "superchain",
+    "departments": [
+      {
+        "department_name": "department"
+      }
+    ]
+  },
+  {
+    "store_id": 20,
+    "store_name": "newstore",
+    "address": "store",
+    "latitude": 11,
+    "longitude": 9,
+    "opening_hours": "20-20",
+    "store_type": "grocery",
+    "parking_availability": true,
+    "chain_name": "chains",
+    "departments": [
+      {
+        "department_name": "free"
+      }
+    ]
+  },
+  {
+    "store_id": 21,
+    "store_name": "Konzum",
+    "address": "Ilica 117A, Zagreb",
+    "latitude": 45.81275015,
+    "longitude": 15.96082939,
+    "opening_hours": "08:00-22:00",
+    "store_type": "Market",
+    "parking_availability": true,
+    "chain_name": "Konzum Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      }
+    ]
+  },
+  {
+    "store_id": 22,
+    "store_name": "Konzum",
+    "address": "Ilica 117A, Zagreb",
+    "latitude": 45.81275015,
+    "longitude": 15.96082939,
+    "opening_hours": "08:00-22:00",
+    "store_type": "Market",
+    "parking_availability": false,
+    "chain_name": "Konzum Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      }
+    ]
+  },
+  {
+    "store_id": 23,
+    "store_name": "Konzum",
+    "address": "Ilica 117A, Zagreb",
+    "latitude": 45.81275015,
+    "longitude": 15.96082939,
+    "opening_hours": "08:00-22:00",
+    "store_type": "Market",
+    "parking_availability": false,
+    "chain_name": "Konzum Group",
+    "departments": [
+      {
+        "department_name": "Bakery"
+      }
+    ]
+  }
+]

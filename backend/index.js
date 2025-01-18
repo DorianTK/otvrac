@@ -6,8 +6,13 @@ const path = require("path");
 
 const PORT = 4000;
 
+const clientId = "z7tN3TmIsD7pCDHiGciMLrOw8NkAKYB8";
+const clientSecret =
+    "SnOV6nYgAjDxBdWn_iI2B9MxF6CKVH9Vz5CtSilhxvEahXTn_WzGxpC4ul536IfD";
+
 app.use(cors());
 app.use(express.json());
+app.use("/files", express.static(path.join(__dirname)));
 
 const Pool = require("pg").Pool;
 const pool = new Pool({
@@ -16,6 +21,90 @@ const pool = new Pool({
     database: "otvrac",
     password: "orbit",
     port: 5432,
+});
+
+app.get("/api/refresh-data", async (req, res) => {
+    try {
+        const query = `
+        SELECT json_agg(
+            json_build_object(
+                'store_id', s.store_id,
+                'store_name', s.store_name,
+                'address', s.address,
+                'latitude', s.latitude,
+                'longitude', s.longitude,
+                'opening_hours', s.opening_hours,
+                'store_type', s.store_type,
+                'parking_availability', s.parking_availability,
+                'chain_name', s.chain_name,
+                'departments', (
+                    SELECT json_agg(
+                        json_build_object('department_name', d.department_name)
+                    )
+                    FROM departments d
+                    WHERE d.store_id = s.store_id
+                    )
+                )
+            ) AS stores_json
+        FROM stores s;`;
+
+        const data = await pool.query(query);
+        const stores = data.rows[0].stores_json || [];
+        console.log("Fetched stores: ", stores);
+
+        // Save JSON file
+        const jsonFilePath = path.join(__dirname, "popis-lokalnih-ducana.json");
+        console.log("json path ", jsonFilePath);
+        fs.writeFileSync(jsonFilePath, JSON.stringify(stores, null, 2));
+
+        // Save CSV file
+        const csvFilePath = path.join(__dirname, "popis-lokalnih-ducana.csv");
+        const csvHeaders = [
+            "store_id",
+            "store_name",
+            "address",
+            "latitude",
+            "longitude",
+            "opening_hours",
+            "store_type",
+            "parking_availability",
+            "chain_name",
+            "departments",
+        ];
+        const csvRows = [
+            csvHeaders.join(","), // Add header row
+            ...stores.map((store) =>
+                [
+                    store.store_id,
+                    store.store_name,
+                    store.address,
+                    store.latitude,
+                    store.longitude,
+                    store.opening_hours,
+                    store.store_type,
+                    store.parking_availability,
+                    store.chain_name,
+                    JSON.stringify(store.departments),
+                ]
+                    .map((value) => `"${value || ""}"`) // Escape values
+                    .join(",")
+            ),
+        ];
+        fs.writeFileSync(csvFilePath, csvRows.join("\n"));
+
+        res.status(200).json({
+            status: "OK",
+            message: "Data refreshed and files saved successfully",
+            jsonFile: jsonFilePath,
+            csvFile: csvFilePath,
+        });
+    } catch (error) {
+        console.error("Error refreshing data:", error);
+        res.status(500).json({
+            status: "Error",
+            message: "Failed to refresh data",
+        });
+    }
 });
 
 app.get("/api/stores", async (req, res) => {
@@ -44,10 +133,40 @@ app.get("/api/stores", async (req, res) => {
         FROM stores s;`;
 
         const data = await pool.query(query);
+        const stores = data.rows[0]?.stores_json || [];
+
+        const enrichedStores = stores.map((store) => ({
+            "@context": "https://schema.org",
+            "@type": "Store",
+            name: store.store_name,
+            address: {
+                "@type": "PostalAddress",
+                streetAddress: store.address,
+            },
+            geo: {
+                "@type": "GeoCoordinates",
+                latitude: store.latitude,
+                longitude: store.longitude,
+            },
+            openingHours: store.opening_hours,
+            additionalType: store.store_type,
+            amenityFeature: {
+                "@type": "LocationFeatureSpecification",
+                name: "parking available: " + store.parking_availability,
+            },
+            brand: {
+                "@type": "Brand",
+                name: store.chain_name,
+            },
+            department: store.departments.map((dept) => ({
+                "@type": "Organization",
+                name: dept.department_name,
+            })),
+        }));
         res.status(200).json({
             status: "OK",
             message: "Fetched stores successfully",
-            response: data.rows[0].stores_json || [],
+            response: enrichedStores,
         });
     } catch (error) {
         console.log(error);
@@ -69,7 +188,16 @@ app.post("/api/stores", async (req, res) => {
 
     console.log(req.body);
 
-    if (!store_name || !address || !latitude || !longitude || !store_type || !opening_hours  || !chain_name || !departments  ) {
+    if (
+        !store_name ||
+        !address ||
+        !latitude ||
+        !longitude ||
+        !store_type ||
+        !opening_hours ||
+        !chain_name ||
+        !departments
+    ) {
         return res.status(400).json({
             status: "Error",
             message: "Invalid input data",
@@ -106,6 +234,7 @@ app.post("/api/stores", async (req, res) => {
                 department.department_name,
             ]);
         }
+        
 
         res.status(201).json({
             status: "Created",
@@ -355,10 +484,9 @@ app.get("/api/store/opening_hours/:id", async (req, res) => {
             response: {
                 store_id: store.store_id,
                 store_name: store.store_name,
-                opening_hours: store.opening_hours
+                opening_hours: store.opening_hours,
             },
         });
-
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -408,7 +536,6 @@ app.get("/api/store/location/:id", async (req, res) => {
                 longitude: store.longitude,
             },
         });
-
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -455,7 +582,6 @@ app.get("/api/store/name/:id", async (req, res) => {
                 store_name: store.store_name,
             },
         });
-
     } catch (error) {
         console.error(error);
         res.status(500).json({
